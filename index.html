@@ -55,7 +55,9 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
-header.top { padding-block: 32px 8px; }
+nav.site { display: flex; gap: 16px; padding-block: 16px 0; font: 500 12px var(--f-mono); letter-spacing: .06em; text-transform: uppercase; }
+nav.site a { color: var(--muted); text-decoration: none; } nav.site a[aria-current] { color: var(--accent); }
+header.top { padding-block: 18px 8px; }
 .eyebrow { font: 500 12px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
 h1 { font: 700 clamp(28px, 5vw, 44px)/1.05 var(--f-display); margin: 10px 0 8px; text-wrap: balance; letter-spacing: -.01em; }
 .lede { max-width: 64ch; color: var(--muted); margin: 0; }
@@ -160,6 +162,7 @@ footer p { max-width: 70ch; margin: 0 0 6px; }
 </style>
 
 <div class="wrap">
+  <nav class="site"><a href="./" aria-current="page">Master Study Guide</a><a href="mp-test.html">MP Module Test</a></nav>
   <header class="top">
     <div class="eyebrow">Balanced Body · Reformer 1–3 · 63 exercises</div>
     <h1>Master Study Guide</h1>
