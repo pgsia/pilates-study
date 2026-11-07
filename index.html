@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Master Study Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: sticky filter bar over a responsive grid of exercise cards, grouped by manual; rep-pattern summary up top. */
+:root {
+  --bg: #f4f6f4;
+  --surface: #ffffff;
+  --fg: #1b2420;
+  --muted: #5d6b65;
+  --line: #d9e0dc;
+  --accent: #1d6b5f;        /* reformer upholstery teal */
+  --accent-soft: #dcece8;
+  --wood: #9a6a2f;          /* maple frame, used for rep counts */
+  --on-test: #1d6b5f;
+  --surprise: #a4492b;
+  --surprise-soft: #f6e4dc;
+  --mark: #fff1b8;
+  --p-wbm: #7048b8; --p-ti: #2563a6; --p-lb: #3d7f2e; --p-ub: #b0478a; --p-mr: #b8780d;
+  --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111614; --surface: #19201d; --fg: #e5ece8; --muted: #9aaaa3; --line: #2c3632;
+    --accent: #63c2b1; --accent-soft: #1f3530; --wood: #d9a865; --on-test: #63c2b1;
+    --surprise: #ee9271; --surprise-soft: #3a2420; --mark: #4a3f12; color-scheme: dark;
+    --p-wbm: #a98ae6; --p-ti: #6aa5e8; --p-lb: #7fc06e; --p-ub: #e08bc4; --p-mr: #e8b04a;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111614; --surface: #19201d; --fg: #e5ece8; --muted: #9aaaa3; --line: #2c3632;
+  --accent: #63c2b1; --accent-soft: #1f3530; --wood: #d9a865; --on-test: #63c2b1;
+  --surprise: #ee9271; --surprise-soft: #3a2420; --mark: #4a3f12; color-scheme: dark;
+  --p-wbm: #a98ae6; --p-ti: #6aa5e8; --p-lb: #7fc06e; --p-ub: #e08bc4; --p-mr: #e8b04a;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font: 15px/1.5 var(--f-body);
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap {
+  max-width: 1240px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+header.top { padding-block: 32px 8px; }
+.eyebrow { font: 500 12px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 700 clamp(28px, 5vw, 44px)/1.05 var(--f-display); margin: 10px 0 8px; text-wrap: balance; letter-spacing: -.01em; }
+.lede { max-width: 64ch; color: var(--muted); margin: 0; }
+.lede b { color: var(--fg); }
+
+/* rep patterns */
+.patterns { margin-block: 24px 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.pat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+.pat h3 { margin: 0 0 6px; font: 700 15px/1.2 var(--f-display); display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.pat .def { font: 700 22px/1 var(--f-display); color: var(--wood); font-variant-numeric: tabular-nums; }
+.pat .def small { font: 500 11px var(--f-mono); color: var(--muted); letter-spacing: .04em; margin-left: 4px; }
+.pat ul { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; font-size: 13.5px; color: var(--muted); }
+.pat li b { color: var(--fg); font-variant-numeric: tabular-nums; }
+.rule { margin: 12px 0 0; font-size: 14px; color: var(--muted); }
+.rule b { color: var(--fg); }
+
+/* movement principles key */
+.principles { margin-top: 12px; }
+.principles h2 { font: 700 20px/1.1 var(--f-display); margin: 0 0 4px; }
+.principles > p { margin: 0 0 12px; color: var(--muted); font-size: 14px; max-width: 70ch; }
+.pkey { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.pk { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.pk h3 { margin: 0; font: 700 14.5px/1.2 var(--f-display); display: flex; align-items: center; gap: 7px; }
+.pk p { margin: 0; font-size: 13px; color: var(--muted); }
+.pk .cnt { margin-top: auto; font: 500 11px var(--f-mono); color: var(--muted); letter-spacing: .03em; }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--pc); }
+.p-wbm { --pc: var(--p-wbm); } .p-ti { --pc: var(--p-ti); } .p-lb { --pc: var(--p-lb); } .p-ub { --pc: var(--p-ub); } .p-mr { --pc: var(--p-mr); }
+.mp { display: grid; gap: 4px; font-size: 13px; }
+.mp .row { display: flex; align-items: center; gap: 7px; min-width: 0; }
+.mp .lbl { font: 500 10px var(--f-mono); letter-spacing: .07em; text-transform: uppercase; color: var(--muted); width: 72px; flex: none; }
+.mp .row.pri .nm { font-weight: 700; }
+.mp .why { color: var(--muted); font-size: 12.5px; font-style: italic; padding-left: 79px; }
+.seg button .dot { display: inline-block; width: 8px; height: 8px; margin-right: 5px; vertical-align: 1px; }
+@media (max-width: 1000px) { .pkey { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* controls */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); margin-top: 20px; }
+.bar .wrap { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; padding-block: 12px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.seg button { font: 500 13px/1 var(--f-body); border: 0; background: none; color: var(--fg); padding: 9px 12px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--surface); font-weight: 700; }
+.search { flex: 1 1 200px; min-width: 0; }
+.search input { width: 100%; font: 14px var(--f-body); padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--fg); }
+.quiz { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; user-select: none; }
+.quiz input { accent-color: var(--accent); width: 16px; height: 16px; }
+.count { font: 500 12px var(--f-mono); color: var(--muted); }
+button:focus-visible, input:focus-visible, .card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* cards */
+section.manual { padding-block: 28px 4px; }
+section.manual > h2 { font: 700 22px/1.1 var(--f-display); margin: 0 0 14px; display: flex; gap: 10px; align-items: baseline; }
+section.manual > h2 span { font: 500 12px var(--f-mono); color: var(--muted); letter-spacing: .04em; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px 12px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.head { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: start; }
+.num { font: 500 11px/1 var(--f-mono); color: var(--muted); letter-spacing: .05em; }
+.name { font: 700 17px/1.2 var(--f-display); margin: 4px 0 0; text-wrap: balance; }
+.reps { text-align: right; grid-row: span 2; }
+.reps .r { font: 700 26px/1 var(--f-display); color: var(--wood); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.reps .r.long { font-size: 18px; white-space: normal; }
+.reps .u { display: block; font: 500 10px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+.head.solo { grid-template-columns: 1fr; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 500 11px/1 var(--f-mono); padding: 5px 7px; border-radius: 5px; border: 1px solid var(--line); color: var(--muted); }
+.chip.pre { background: var(--accent-soft); border-color: transparent; color: var(--fg); font: 400 12px/1.3 var(--f-body); padding: 4px 8px; }
+.chip.pre .pl { font: 500 10px var(--f-mono); letter-spacing: .06em; color: var(--accent); margin-right: 6px; }
+.chip.on { background: var(--accent-soft); border-color: transparent; color: var(--on-test); }
+.purpose { margin: 0; padding-left: 18px; display: grid; gap: 3px; font-size: 14px; }
+.purpose b { font-weight: 700; background: linear-gradient(transparent 55%, var(--mark) 55%); }
+.foot { margin-top: auto; display: flex; justify-content: space-between; gap: 8px; font: 500 11px var(--f-mono); color: var(--muted); }
+.foot { flex-direction: column; align-items: flex-start; gap: 6px; }
+.ready { margin: 0; padding-top: 8px; border-top: 1px solid var(--line); width: 100%; font: 400 12.5px/1.4 var(--f-body); color: var(--muted); }
+.ready .pl { display: block; font: 500 10px var(--f-mono); letter-spacing: .07em; text-transform: uppercase; color: var(--accent); margin-bottom: 2px; }
+.desc { margin: 0; font-size: 14px; }
+.note { font-size: 12.5px; color: var(--muted); font-style: italic; margin: 0; }
+.answer { display: contents; }
+.empty { color: var(--muted); padding-block: 40px; text-align: center; }
+
+/* quiz mode: hide reps and purpose until the card is opened */
+body.quizzing .card:not(.open) .reps .r,
+body.quizzing .card:not(.open) .purpose,
+body.quizzing .card:not(.open) .note,
+body.quizzing .card:not(.open) .mp,
+body.quizzing .card:not(.open) .desc { filter: blur(7px); opacity: .45; user-select: none; }
+body.quizzing .card { cursor: pointer; }
+body.quizzing .card:not(.open) .foot .hint { display: inline; }
+.foot .hint { display: none; color: var(--accent); }
+mark { background: var(--mark); color: inherit; border-radius: 2px; }
+
+footer { padding-block: 32px 48px; color: var(--muted); font-size: 13px; }
+footer p { max-width: 70ch; margin: 0 0 6px; }
+
+@media (max-width: 760px) {
+  .patterns { grid-template-columns: 1fr; }
+  .pkey { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  body.quizzing .card .reps .r, body.quizzing .card .purpose { transition: filter .2s, opacity .2s; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Balanced Body · Reformer 1–3 · 63 exercises</div>
+    <h1>Master Study Guide</h1>
+  </header>
+
+
+  <section class="principles" aria-label="Movement principles">
+    <h2>The 5 Movement Principles</h2>
+    <p>Each card shows a primary and a secondary principle, chosen from these definitions (MP manual p2) and the exercise's Purpose or movement. The manuals don't assign them, so treat them as a reasoned answer, not a quote.</p>
+    <div class="pkey" id="pkey"></div>
+  </section>
+</div>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="seg" role="group" aria-label="Manual">
+      <button type="button" id="m-all" data-m="all">All</button>
+      <button type="button" id="m-0" data-m="0">Pre-P</button>
+      <button type="button" id="m-r" data-m="r">R1–3</button>
+      <button type="button" id="m-1" data-m="1">R1</button>
+      <button type="button" id="m-2" data-m="2">R2</button>
+      <button type="button" id="m-3" data-m="3">R3</button>
+    </div>
+    <div class="seg" role="group" aria-label="Primary movement principle" id="pseg"></div>
+    <label class="search"><input id="q" type="search" placeholder="Search exercise or muscle, e.g. serratus" aria-label="Search exercise or muscle"></label>
+    <label class="quiz"><input id="quiz" type="checkbox"> Quiz mode</label>
+    <span class="count" id="count"></span>
+  </div>
+</div>
+
+<main class="wrap" id="main"></main>
+
+<footer class="wrap">
+  <p>Quiz mode blurs the reps, principles and Purpose. Tap a card to check yourself.</p>
+  <p>The principle filter matches each exercise's primary principle.</p>
+</footer>
+
+<script>
+const DATA = [{"m": 1, "n": 1, "name": "Footwork", "test": true, "level": "Beg", "reps": "10", "purpose": ["<b>Strengthen the leg muscles<\/b> including the internal and external rotators, quadriceps, hamstrings, abductors, adductors, calf muscles and ankle stabilizers", "Develop <b>support for neutral spine<\/b>", "Teach <b>lumbopelvic stability<\/b>", "Correct <b>hip, leg and ankle alignment<\/b>", "Increase circulation"], "page": "25"}, {"m": 1, "n": 2, "name": "Roll Down", "test": false, "level": "Beg", "reps": "10", "purpose": ["<b>Strengthen the abdominals<\/b>", "<b>Stretch the low back<\/b>", "<b>Strengthen the arms<\/b> especially the elbow flexors, and posterior shoulder girdle", "<b>Maintain abdominal support<\/b> for the low back <b>while in lumbar flexion<\/b>"], "page": "27"}, {"m": 1, "n": 3, "name": "Supine Arm Work", "test": false, "level": "Beg", "reps": "10", "purpose": ["<b>Strengthen the arms<\/b> including triceps, latissimus dorsi, lower trapezius, deltoid, pectoralis major", "<b>Strengthen the abdominals<\/b>", "<b>Maintain neutral spine<\/b>", "Learn to <b>use arms and abdominals together<\/b>"], "page": "29"}, {"m": 1, "n": 4, "name": "The Hundred", "test": true, "level": "Beg–Int", "reps": "10", "purpose": ["Teach <b>lumbopelvic stability<\/b>", "<b>Strengthen abdominals<\/b> and <b>hip flexors<\/b>", "Increase <b>thoracic flexibility<\/b>", "Learn to <b>connect the arms to the core<\/b>"], "page": "31"}, {"m": 1, "n": 5, "name": "Kneeling Abs Facing Back", "test": false, "level": "Beg", "reps": "10", "purpose": ["<b>Strengthen the abdominals<\/b>", "Increase <b>pelvic stability<\/b>", "Increase <b>scapular stability<\/b>", "<b>Strengthen<\/b> latissimus dorsi, teres major, serratus anterior, pectoralis major, rotator cuff", "<b>Strengthen hip flexors<\/b>"], "page": "33"}, {"m": 1, "n": 6, "name": "Kneeling Abs Facing Front", "test": false, "level": "Beg", "reps": "10", "purpose": ["<b>Strengthen the abdominals<\/b>", "Increase <b>pelvic stability<\/b>", "Increase <b>scapular stability<\/b>", "<b>Strengthen shoulder and scapular stabilizers<\/b> including latissimus dorsi, teres major, serratus anterior, pectoralis major, rotator cuff", "<b>Strengthen hip flexors<\/b>"], "page": "35"}, {"m": 1, "n": 7, "name": "Feet in Straps", "test": false, "level": "Beg", "reps": "6–10", "purpose": ["<b>Strengthen abdominals<\/b>", "<b>Strengthen<\/b> the hamstrings, adductors, deep hip external rotators, gluteus maximus, hip abductors", "Increase <b>flexibility of<\/b> the hamstrings, adductors and hip flexors", "Increase <b>pelvic stability<\/b>", "Develop balance in the hip musculature"], "page": "40"}, {"m": 1, "n": 8, "name": "LB Pulling Straps", "test": false, "level": "Beg–Int", "reps": "6", "purpose": ["<b>Strengthen the back of the body<\/b> including the latissimus dorsi, teres major, lower trapezius, erector spinae, gluteus maximus and hamstrings", "<b>Strengthen the abdominals<\/b> in a prone position", "Increase <b>scapular stability<\/b>", "Improve <b>leg and torso alignment<\/b>"], "page": "43"}, {"m": 1, "n": 9, "name": "LB Overhead Press & Swan", "test": false, "level": "Int", "reps": "4–8", "purpose": ["<b>Strengthen<\/b> the posterior shoulder, torso, hips and legs", "<b>Strengthen and stretch the abdominals<\/b>", "<b>Strengthen<\/b> the triceps and pectoralis major", "Increase <b>scapular stability<\/b>"], "page": "45"}, {"m": 1, "n": 10, "name": "SB Abdominals", "test": false, "level": "All", "reps": "6", "purpose": ["<b>Strengthen abdominals<\/b>", "<b>Strengthen back extensor muscles<\/b> (especially in flat back version)", "<b>Stretch the low back<\/b> (especially in the round back version)", "Teach <b>balanced strength between abdominals and back extensors<\/b>"], "page": "47"}, {"m": 1, "n": 11, "name": "Bridging & Pelvic Lift", "test": true, "level": "Int", "reps": "6", "purpose": ["<b>Strengthen<\/b> the gluteals, hamstrings and back extensors", "Increase the <b>flexibility<\/b> and articulation <b>of the spine<\/b>", "Teach <b>lumbopelvic stability<\/b>", "Teach <b>balanced abdominal and lumbar strength<\/b>"], "page": "51"}, {"m": 1, "n": 12, "name": "Knee Stretch", "test": true, "level": "Int", "reps": "8", "purpose": ["<b>Strengthen<\/b> quadriceps, hamstrings and gluteals", "<b>Strengthen abdominals<\/b>", "Increase <b>pelvic stability<\/b>", "Increase <b>scapular stability<\/b>"], "page": "54"}, {"m": 1, "n": 13, "name": "Elephant", "test": true, "level": "Beg", "reps": "10", "purpose": ["<b>Strengthen abdominals<\/b> (round back)", "Increase <b>back, hamstring and calf flexibility<\/b>", "Increase <b>scapular stability<\/b>", "<b>Strengthen hip flexors<\/b> (flat back)"], "page": "57"}, {"m": 1, "n": 14, "name": "Long Stretch", "test": true, "level": "Int", "reps": "4", "purpose": ["<b>Strengthen the torso<\/b> including the abdominals, erector spinae, gluteus maximus, adductors and shoulder girdle", "<b>Strengthen scapular stabilizers<\/b> including serratus anterior, lower trapezius and pectoralis major", "Increase <b>scapular stability<\/b>"], "page": "59"}, {"m": 1, "n": 15, "name": "Up Stretch", "test": true, "level": "Int", "reps": "5", "purpose": ["<b>Strengthen the torso<\/b> including abdominals, erector spinae, gluteus maximus, adductors and shoulder girdle", "Increase <b>scapular stability<\/b>", "<b>Strengthen scapular stabilizers<\/b> including serratus anterior, lower trapezius and pectoralis major", "Improve coordination"], "page": "61"}, {"m": 1, "n": 16, "name": "Arm Work Facing Straps", "test": false, "level": "Beg–Int", "reps": "4–10", "purpose": ["<b>Strengthen arm and shoulder muscles<\/b> including rotator cuff, brachialis, biceps, triceps, pectoralis major, latissimus dorsi and deltoid", "<b>Strengthen scapular stabilizers<\/b> including serratus anterior, trapezius and rhomboids", "Increase <b>torso stabilization<\/b>", "Improve sitting posture"], "page": "65"}, {"m": 1, "n": 17, "name": "Arm Work Facing Footbar", "test": false, "level": "Beg–Int", "reps": "4–10", "purpose": ["<b>Strengthen arm and shoulder muscles<\/b> including brachialis, biceps, triceps, pectoralis major, latissimus dorsi, rotator cuff and deltoid", "<b>Strengthen scapular stabilizers<\/b> including the serratus anterior, trapezius and rhomboids", "Increase <b>torso stabilization<\/b>", "Improve sitting posture"], "page": "67"}, {"m": 1, "n": 18, "name": "Standing/Side Splits", "test": false, "level": "Beg", "reps": "8", "purpose": ["<b>Strengthen leg and hip muscles<\/b> including hip adductors, abductors and external rotators along with quadriceps and hamstrings", "Improve <b>balance<\/b>", "Improve standing posture"], "page": "69"}, {"m": 1, "n": 19, "name": "Lunges", "test": false, "level": "Beg", "reps": "4", "purpose": ["<b>Stretch the anterior hip<\/b> including psoas, iliacus, rectus femoris and sartorius", "<b>Stretch the abdominals<\/b>"], "page": "71"}, {"m": 1, "n": 20, "name": "Side Stretch/Mermaid", "test": true, "level": "Beg", "reps": "6", "purpose": ["<b>Stretch the lateral torso<\/b> including quadratus lumborum, latissimus dorsi, internal and external obliques and intercostals", "<b>Stabilize scapulae<\/b>"], "page": "73"}, {"m": 1, "n": 21, "name": "Cleopatra", "test": false, "level": "Int", "reps": "6", "purpose": ["<b>Stretch the lateral torso<\/b> including quadratus lumborum, latissimus dorsi, internal and external obliques and intercostals", "<b>Stabilize scapulae<\/b>"], "page": "74"}, {"m": 2, "n": 1, "name": "Single Leg Footwork", "test": false, "level": "Beg–Int", "reps": "10", "purpose": ["<b>Strengthen the leg muscles<\/b> including the internal and external rotators, quadriceps, hamstrings, abductors, adductors, calf muscles and ankle stabilizers", "<b>Balance the strength between the legs<\/b>", "Teach <b>lumbopelvic stability<\/b>", "Correct <b>hip, leg and ankle alignment<\/b>", "Increase circulation"], "page": "29"}, {"m": 2, "n": 2, "name": "Footwork on Footplate", "test": false, "level": "Beg", "reps": "variable", "purpose": ["<b>Strengthen the leg muscles<\/b> including the internal and external rotators, quadriceps, hamstrings, abductors, adductors, calf muscles and ankle stabilizers", "Develop <b>support for neutral spine<\/b>", "Teach <b>lumbopelvic stability<\/b>", "Correct <b>hip, leg and ankle alignment<\/b>", "Increase circulation"], "page": "31"}, {"m": 2, "n": 3, "name": "Jumping on Footplate", "test": false, "level": "Int", "reps": "variable", "purpose": ["<b>Strengthen the abdominals<\/b>", "<b>Strengthen the leg muscles<\/b> including the internal and external rotators, quadriceps, hamstrings, abductors, adductors, calf muscles and ankle stabilizers", "Teach <b>lumbopelvic stability<\/b>", "Teach jump mechanics", "Correct <b>hip, leg and ankle alignment<\/b> in a challenging exercise", "Increase circulation"], "page": "33"}, {"m": 2, "n": 4, "name": "Coordination", "test": true, "level": "Int", "reps": "6", "purpose": ["<b>Strengthen<\/b> the <b>abdominals<\/b>, <b>hip flexors<\/b>, latissimus dorsi and adductors", "Increase <b>thoracic flexibility<\/b>", "Teach <b>pelvic stability<\/b>", "Increase <b>coordination<\/b>", "Learn to <b>connect the arms to the core<\/b>"], "page": "35"}, {"m": 2, "n": 5, "name": "Short Spine Massage", "test": true, "level": "Adv", "reps": "6", "purpose": ["<b>Strengthen abdominals<\/b>", "<b>Strengthen the hamstrings<\/b> and <b>gluteus maximus<\/b>", "Increase <b>flexibility<\/b> of the <b>spine<\/b> and <b>hamstrings<\/b>", "Improve <b>spinal alignment<\/b>", "Develop balance in the spinal musculature"], "page": "37"}, {"m": 2, "n": 6, "name": "Stomach Massage", "test": true, "level": "Int", "reps": "6", "purpose": ["<b>Strengthen the abdominals<\/b> and the torso", "<b>Strengthen<\/b> the legs including the quadriceps, hamstrings, adductors and calves", "Better <b>flexibility<\/b> in lumbar spine, hamstrings and calves", "Improve <b>leg alignment<\/b>", "Teach <b>scapular stabilization<\/b>"], "page": "40"}, {"m": 2, "n": 7, "name": "LB Back Stroke", "test": true, "level": "Int", "reps": "6", "purpose": ["<b>Strengthen the abdominals<\/b> hip flexors, latissimus dorsi and adductors", "Increase <b>thoracic flexibility<\/b>", "Teach <b>pelvic stability<\/b>", "Increase <b>coordination<\/b>", "Learn to <b>connect the arms to the core<\/b>"], "page": "43"}, {"m": 2, "n": 8, "name": "LB Breast Stroke", "test": true, "level": "Int", "reps": "3", "purpose": ["<b>Strengthen<\/b> spinal extension", "<b>Strengthen<\/b> gluteus maximus and hamstrings", "<b>Strengthen<\/b> deltoid, rotator cuff and shoulder girdle", "Increase <b>back extension flexibility<\/b>", "Increase <b>shoulder flexibility<\/b>"], "page": "45"}, {"m": 2, "n": 9, "name": "LB Swimming", "test": false, "level": "Int", "reps": "20", "purpose": ["<b>Strengthen spinal extensors<\/b>", "<b>Strengthen gluteus maximus<\/b> and <b>hamstrings<\/b>", "Increase <b>back extension flexibility<\/b>", "Increase <b>pelvic stability<\/b>"], "page": "47"}, {"m": 2, "n": 10, "name": "SB Oblique Abs", "test": true, "level": "Int–Adv", "reps": "3–6", "purpose": ["<b>Strengthen the oblique abdominals<\/b> for torso rotation", "Teach <b>torso rotation<\/b>", "Increase <b>back flexibility<\/b>"], "page": "51"}, {"m": 2, "n": 11, "name": "SB Advanced Abs / Fire Baton", "test": true, "level": "Adv", "reps": "3–4", "purpose": ["Teach <b>balanced strength between the abdominals and the back extensors<\/b>", "<b>Strengthen abdominals<\/b>", "<b>Strengthen the back muscles<\/b>", "<b>Stretch<\/b> the low back, hamstrings and abdominals"], "page": "53"}, {"m": 2, "n": 12, "name": "SB Mermaid", "test": false, "level": "Int", "reps": "3", "purpose": ["<b>Strengthen the abdominals<\/b> including internal and external obliques", "<b>Strengthen the lateral torso<\/b> including latissimus dorsi, quadratus lumborum, psoas, gluteus medius and minimus", "Increase <b>lateral torso flexibility<\/b>", "Teach <b>spinal rotation<\/b>"], "page": "55"}, {"m": 2, "n": 13, "name": "SB Climb a Tree", "test": true, "level": "Adv", "reps": "2–3 each side", "purpose": ["<b>Strengthen the abdominals<\/b>", "<b>Strengthen the back extensors<\/b>", "Increase <b>hamstring flexibility<\/b>", "Teach <b>pelvic stability<\/b>"], "page": "57"}, {"m": 2, "n": 14, "name": "Knee Stretch Knees Off / Jackrabbit", "test": true, "level": "Adv", "reps": "4–8", "purpose": ["<b>Strengthen<\/b> quadriceps, hamstrings and gluteals", "<b>Strengthen abdominals<\/b>", "<b>Strengthen the shoulder<\/b> including the serratus anterior, lower trapezius, pectoralis major, rotator cuff, triceps and anterior deltoid", "Increase <b>pelvic stability<\/b>", "Increase <b>scapular stability<\/b>"], "page": "59"}, {"m": 2, "n": 15, "name": "Arabesque & Single Leg Elephant", "test": false, "level": "Int", "reps": "6–8", "purpose": ["<b>Strengthen the abdominals<\/b>", "<b>Strengthen the hip extensors<\/b> including the hamstrings, gluteus maximus and external rotators", "<b>Strengthen the scapular stabilizers<\/b>", "Increase <b>hamstring and calf flexibility<\/b>"], "page": "61"}, {"m": 2, "n": 16, "name": "Down Stretch", "test": false, "level": "Int", "reps": "5", "purpose": ["<b>Strengthen the back extensors<\/b>", "<b>Strengthen the shoulder<\/b> including the serratus anterior, lower trapezius, pectoralis major, rotator cuff, triceps and anterior deltoid", "Increase <b>scapular stability<\/b>"], "page": "63"}, {"m": 2, "n": 17, "name": "Semi Circle", "test": true, "level": "Adv", "reps": "3 each way", "purpose": ["<b>Strengthen the abdominals<\/b> and <b>spinal extensors<\/b>", "<b>Strengthen the shoulders<\/b> including the triceps and <b>scapular stabilizers<\/b>", "Increase <b>spinal mobility<\/b>", "Increase <b>hip flexor flexibility<\/b>", "Teach <b>spinal articulation<\/b> and sequencing"], "page": "65"}, {"m": 2, "n": 18, "name": "Chest Expansion & Kneeling Arm Circles", "test": true, "level": "Int", "reps": "4–6", "purpose": ["<b>Strengthen the posterior shoulder muscles<\/b> including the posterior deltoid, teres major, latissimus dorsi and triceps", "<b>Strengthen the anterior shoulder muscles<\/b> including the anterior deltoid, pectoralis major, rotator cuff and latissimus dorsi (Kneeling Arm Circles)", "Increase <b>torso stabilization<\/b>", "Increase <b>neck mobility<\/b>"], "page": "67"}, {"m": 2, "n": 19, "name": "Kneeling Side Arms", "test": false, "level": "Int–Adv", "reps": "4–6 each side", "purpose": ["<b>Strengthen the arm and shoulder muscles<\/b> including the brachialis, biceps, triceps, pectoralis major, latissimus dorsi, rotator cuff and deltoid", "<b>Strengthen the scapular stabilizers<\/b> including the serratus anterior, trapezius and rhomboids", "Increase <b>torso stabilization<\/b>", "Improve standing posture"], "page": "71"}, {"m": 2, "n": 20, "name": "Rowing Front I: Sitting Tall", "test": true, "level": "Int", "reps": "4–5", "purpose": ["<b>Strengthen the shoulder muscles<\/b> including the pectoralis major, latissimus dorsi, rotator cuff and deltoid", "<b>Strengthen the scapular stabilizers<\/b> including the serratus anterior, trapezius and rhomboids", "<b>Strengthen abdominals<\/b> and <b>hip flexors<\/b>", "<b>Stretch hamstrings<\/b>", "Increase <b>torso stabilization<\/b>", "Improve coordination"], "page": "73"}, {"m": 2, "n": 21, "name": "Rowing Front II: Bending Down", "test": true, "level": "Int", "reps": "4", "purpose": ["<b>Strengthen the shoulder muscles<\/b> including the pectoralis major, latissimus dorsi, rotator cuff and deltoid", "<b>Strengthen the scapular stabilizers<\/b> including the serratus anterior, trapezius and rhomboids", "<b>Strengthen abdominals<\/b> and <b>hip flexors<\/b>", "<b>Stretch<\/b> hamstrings, back and latissimus dorsi", "Increase <b>torso stabilization<\/b>", "Improve <b>coordination<\/b>"], "page": "75"}, {"m": 2, "n": 22, "name": "Corkscrew", "test": true, "level": "Adv", "reps": "3 each way", "purpose": ["Increase <b>spinal flexibility<\/b>", "Increase <b>torso control<\/b>", "<b>Scapular stabilization<\/b>", "<b>Coordination<\/b>"], "page": "77"}, {"m": 3, "n": 1, "name": "LB Double Leg Kick", "test": false, "level": "Adv", "reps": "4–6", "purpose": ["<b>Strengthen spinal extensors<\/b>", "<b>Strengthen hip extensors and knee flexors<\/b> including gluteus maximus, hamstrings and gastrocnemius", "Increase <b>shoulder flexibility<\/b>"], "page": "19"}, {"m": 3, "n": 2, "name": "LB Teaser", "test": true, "level": "Super adv", "reps": "4–5", "purpose": ["<b>Strengthen abdominals<\/b>", "<b>Strengthen iliopsoas and hip flexors<\/b>", "Develop <b>balance and coordination<\/b>", "Maintain a <b>stable spine<\/b>"], "page": "21"}, {"m": 3, "n": 3, "name": "LB Horseback", "test": false, "level": "Super adv", "reps": "4–5", "purpose": ["<b>Strengthen abdominals<\/b>", "<b>Strengthen adductors, gluteus maximus and hamstrings<\/b>", "<b>Strengthen the shoulders<\/b>", "<b>Balance<\/b> and <b>coordination<\/b>"], "page": "23"}, {"m": 3, "n": 4, "name": "LB Swan", "test": false, "level": "Adv", "reps": "4", "purpose": ["<b>Strengthen spinal extensors<\/b>", "<b>Strengthen gluteus maximus and hamstrings<\/b>", "Increase <b>back extension flexibility<\/b>", "<b>Stretch abdominals<\/b>"], "page": "25"}, {"m": 3, "n": 5, "name": "LB Grasshopper", "test": false, "level": "Super adv", "reps": "3", "purpose": ["<b>Strengthen spinal extension<\/b>", "<b>Strengthen gluteus maximus, external hip rotators and hamstrings<\/b>", "Increase <b>back extension flexibility<\/b>"], "page": "27"}, {"m": 3, "n": 6, "name": "LB Rocking", "test": false, "level": "Super adv", "reps": "3–6", "purpose": ["<b>Strengthen spinal extensors<\/b>", "<b>Strengthen gluteus maximus and hamstrings<\/b>", "<b>Strengthen<\/b> deltoid, rotator cuff and shoulder girdle", "Increase <b>back extension flexibility<\/b>", "Increase <b>shoulder flexibility<\/b>"], "page": "28"}, {"m": 3, "n": 7, "name": "Rowing Back I: Round Back", "test": true, "level": "Adv", "reps": "4–5", "purpose": ["<b>Strengthen the shoulder muscles<\/b> including the pectoralis major, latissimus dorsi, rotator cuff and posterior deltoid", "<b>Strengthen the scapular stabilizers<\/b> including the serratus anterior, trapezius and rhomboids", "<b>Strengthen abdominals<\/b> and <b>hip flexors<\/b>", "<b>Stretch hamstrings and back<\/b>", "Increase <b>dynamic torso stabilization<\/b>", "Improve coordination"], "page": "31"}, {"m": 3, "n": 8, "name": "Rowing Back II: Flat Back", "test": true, "level": "Adv", "reps": "4–5", "purpose": ["<b>Strengthen the arm and shoulder muscles<\/b> including the biceps, brachialis, pectoralis major, latissimus dorsi, rotator cuff and deltoid", "<b>Strengthen the scapular stabilizers<\/b> including the serratus anterior, trapezius and rhomboids", "<b>Strengthen abdominals<\/b> and <b>hip flexors<\/b>", "<b>Stretch hamstrings and back<\/b>", "Increase <b>dynamic torso stabilization<\/b>", "Improve coordination"], "page": "33"}, {"m": 3, "n": 9, "name": "Reverse Abdominals", "test": false, "level": "Super adv", "reps": "10", "purpose": ["<b>Strengthen abdominals<\/b>", "<b>Strengthen iliopsoas and hip flexors<\/b>", "<b>Balance abdominal and iliopsoas engagement<\/b>"], "page": "35"}, {"m": 3, "n": 10, "name": "Long Spine Massage", "test": true, "level": "Adv", "reps": "3 each way", "purpose": ["<b>Strengthen abdominals<\/b>", "<b>Strengthen the hamstrings, gluteus maximus<\/b> and <b>spinal extensors<\/b>", "Increase <b>flexibility<\/b> of the <b>spine<\/b> and <b>hamstrings<\/b>", "Improve <b>spinal alignment<\/b>", "Develop balance in the spinal musculature"], "page": "37"}, {"m": 3, "n": 11, "name": "Jackknife", "test": false, "level": "Super adv", "reps": "3–4", "purpose": ["Increase <b>spinal flexibility<\/b>", "Increase <b>torso control<\/b>", "<b>Strengthen abdominals<\/b>", "<b>Strengthen hamstrings and gluteus maximus<\/b>", "<b>Scapular stabilization<\/b>", "Coordination"], "page": "39"}, {"m": 3, "n": 12, "name": "Thigh Stretch", "test": true, "level": "Adv", "reps": "4", "purpose": ["<b>Strengthen and stretch the quadriceps<\/b>", "<b>Strengthen the posterior shoulder muscles<\/b> including the posterior deltoid, teres major, latissimus dorsi and triceps", "Increase <b>torso stabilization<\/b>", "Increase <b>back extension strength and flexibility<\/b>"], "page": "41"}, {"m": 3, "n": 13, "name": "Tendon Stretch", "test": true, "level": "Adv", "reps": "4", "purpose": ["<b>Strengthen the shoulder<\/b> including the rotator cuff, latissimus dorsi, teres major, serratus anterior and lower trapezius", "<b>Strengthen the abdominals and hip flexors<\/b>", "<b>Stretch the anterior shoulder<\/b>", "<b>Stretch the hamstrings<\/b>", "<b>Stabilize the scapulae<\/b>", "Develop coordination", "Develop <b>full bodied integration<\/b>"], "page": "43"}, {"m": 3, "n": 14, "name": "Long Back Stretch / Slide", "test": true, "level": "Super adv", "reps": "3 each side", "purpose": ["<b>Strengthen the shoulder<\/b> including the rotator cuff, latissimus dorsi, teres major, serratus anterior, lower trapezius and triceps", "<b>Strengthen the gluteus maximus and hamstrings<\/b>", "<b>Strengthen the abdominals<\/b>", "<b>Stretch the anterior shoulder<\/b>", "<b>Stabilize the scapula<\/b>", "Develop coordination", "Develop <b>full bodied integration<\/b>"], "page": "45"}, {"m": 3, "n": 15, "name": "Snake", "test": false, "level": "Super adv", "reps": "3 each side", "purpose": ["<b>Strengthen the shoulder<\/b> including the rotator cuff, latissimus dorsi, teres major, serratus anterior and lower trapezius", "<b>Strengthen the abdominals and hip flexors<\/b>", "<b>Stretch the hamstrings<\/b>", "<b>Stabilize the scapula<\/b>", "Develop coordination", "Develop <b>full bodied integration<\/b>"], "page": "47"}, {"m": 3, "n": 16, "name": "Twist", "test": true, "level": "Super adv", "reps": "3 each side", "purpose": ["<b>Strengthen the shoulder<\/b> including the rotator cuff, latissimus dorsi, teres major, serratus anterior and lower trapezius", "<b>Strengthen the abdominals and hip flexors<\/b>", "<b>Stretch the hamstrings<\/b>", "<b>Stretch the lateral torso<\/b>", "<b>Stabilize the scapula<\/b>", "Develop coordination", "Develop <b>full bodied integration<\/b>"], "page": "49"}, {"m": 3, "n": 17, "name": "Control Front: Facing Carriage", "test": false, "level": "Adv", "reps": "4", "purpose": ["<b>Strengthen the torso<\/b>", "<b>Strengthen scapular stabilizers and the chest<\/b> including serratus anterior, lower trapezius and pectoralis major", "<b>Strengthen the hamstrings and gluteus maximus<\/b>", "Increase <b>scapular stability<\/b>"], "page": "51"}, {"m": 3, "n": 18, "name": "Control Back: Facing Ceiling", "test": false, "level": "Super adv", "reps": "4", "purpose": ["<b>Strengthen the torso<\/b>", "Increase <b>scapular stability<\/b>", "<b>Strengthen scapular stabilizers<\/b> including serratus anterior, lower trapezius and pectoralis major"], "page": "53"}, {"m": 3, "n": 19, "name": "Star & Side Support", "test": false, "level": "Super adv", "reps": "3", "purpose": ["<b>Strengthen the lateral torso<\/b> including the latissimus dorsi, oblique abdominals, gluteus medius and minimus", "<b>Strengthen the rotator cuff<\/b>", "<b>Stabilize the scapula<\/b>", "<b>Coordination and balance<\/b>"], "page": "56"}, {"m": 3, "n": 20, "name": "Splits", "test": true, "level": "Super adv", "reps": "4", "purpose": ["<b>Stretch and strengthen the hip flexors, adductors and hamstrings<\/b>", "Improve <b>balance<\/b>", "Improve standing posture"], "page": "62"}];
+const PRIN = {
+  wbm: { name: "Whole Body Movement", short: "Whole B", def: "Posture, alignment and integrated movement patterns, including balance, coordination and agility." },
+  ti: { name: "Trunk Integration", short: "Trunk I", def: "The core and the systems linking trunk to limbs: breathing, inner and outer unit, spinal mobility and strength." },
+  lb: { name: "Lower Body Training", short: "Lower B", def: "Leg alignment, balanced strength and mobility for agility, endurance and power." },
+  ub: { name: "Upper Body Training", short: "Upper B", def: "Shoulder girdle and arm strength and stability for daily life, power and speed." },
+  mr: { name: "Mobility & Restoration", short: "M&R", def: "Flexibility, stretching, myofascial release and rest, balancing effort with recovery." }
+};
+// [primary, secondary, why] keyed by manual-number
+const MP = {
+  "1-1": ["lb", "ti", "Leg strength and alignment; supports neutral spine"],
+  "1-2": ["ti", "mr", "Abs working in flexion; stretches the low back"],
+  "1-3": ["ub", "ti", "Arm strength while holding neutral spine"],
+  "1-4": ["ti", "ub", "Lumbopelvic stability; arms connect to the core"],
+  "1-5": ["ti", "ub", "Abs and pelvic stability; shoulder stabilizers hold the frame"],
+  "1-6": ["ti", "ub", "Abs and pelvic stability; shoulder stabilizers hold the frame"],
+  "1-7": ["lb", "mr", "Hip muscle strength; hamstring, adductor and hip flexor flexibility"],
+  "1-8": ["ub", "ti", "Pulling with the back of the body; prone abs"],
+  "1-9": ["ub", "ti", "Triceps, pec and posterior shoulder; torso extension"],
+  "1-10": ["ti", "mr", "Abs balanced with back extensors; low back stretch"],
+  "1-11": ["ti", "lb", "Spinal articulation and lumbopelvic stability; glutes and hamstrings"],
+  "1-12": ["lb", "ti", "Quads, hamstrings, glutes; pelvic stability"],
+  "1-13": ["ti", "mr", "Abs; back, hamstring and calf flexibility"],
+  "1-14": ["ti", "ub", "Plank: whole-torso strength; scapular stabilizers"],
+  "1-15": ["ti", "ub", "Torso strength through the pike; scapular stabilizers"],
+  "1-16": ["ub", "ti", "Arm and shoulder strength; torso stabilization"],
+  "1-17": ["ub", "ti", "Arm and shoulder strength; torso stabilization"],
+  "1-18": ["lb", "wbm", "Abductors, adductors, rotators; balance and standing posture"],
+  "1-19": ["mr", "lb", "Anterior hip stretch; leg in a lunge"],
+  "1-20": ["mr", "ub", "Lateral torso stretch; scapulae stay stable"],
+  "1-21": ["mr", "ub", "Lateral torso stretch; scapulae stay stable"],
+  "2-1": ["lb", "ti", "Single-leg strength; balances the two legs"],
+  "2-2": ["lb", "ti", "Leg strength and alignment; neutral spine"],
+  "2-3": ["lb", "wbm", "Leg power and jump mechanics; alignment under impact"],
+  "2-4": ["ti", "ub", "Pelvic stability; arms connect to the core"],
+  "2-5": ["ti", "mr", "Spinal articulation; spine and hamstring flexibility"],
+  "2-6": ["ti", "lb", "Abs and torso; leg strength and alignment"],
+  "2-7": ["ti", "ub", "Abs and hip flexors; arms connect to the core"],
+  "2-8": ["ti", "ub", "Spinal extension strength; shoulder strength and flexibility"],
+  "2-9": ["ti", "lb", "Spinal extensors; glutes, hamstrings, pelvic stability"],
+  "2-10": ["ti", "mr", "Obliques and torso rotation; back flexibility"],
+  "2-11": ["ti", "mr", "Abs balanced with back extensors; low back and hamstring stretch"],
+  "2-12": ["ti", "mr", "Lateral torso strength; lateral flexibility"],
+  "2-13": ["ti", "mr", "Abs and back extensors; hamstring flexibility"],
+  "2-14": ["lb", "ub", "Quads, hamstrings, glutes; knees off loads the shoulders"],
+  "2-15": ["lb", "ti", "Hip extensors on one leg; abs and scapular stabilizers"],
+  "2-16": ["ub", "ti", "Shoulder strength in extension; back extensors"],
+  "2-17": ["ti", "mr", "Spinal mobility and articulation; hip flexor flexibility"],
+  "2-18": ["ub", "ti", "Posterior shoulder; torso stabilization"],
+  "2-19": ["ub", "ti", "Arm and shoulder strength; torso stabilization"],
+  "2-20": ["ub", "ti", "Shoulders and scapulae; torso stabilization"],
+  "2-21": ["ub", "mr", "Shoulders and scapulae; hamstring, back and lat stretch"],
+  "2-22": ["ti", "mr", "Torso control; spinal flexibility"],
+  "3-1": ["ti", "lb", "Spinal extensors; hip extensors and knee flexors"],
+  "3-2": ["ti", "lb", "Abs with a stable spine; iliopsoas and hip flexors"],
+  "3-3": ["wbm", "lb", "Abs, legs and shoulders at once; balance and coordination"],
+  "3-4": ["ti", "mr", "Spinal extensors; back extension flexibility"],
+  "3-5": ["ti", "lb", "Spinal extension; glutes, rotators, hamstrings"],
+  "3-6": ["ti", "mr", "Spinal extensors; back and shoulder flexibility"],
+  "3-7": ["ub", "ti", "Shoulders and scapulae; dynamic torso stabilization"],
+  "3-8": ["ub", "ti", "Arms and scapulae; dynamic torso stabilization"],
+  "3-9": ["ti", "lb", "Abs balanced with iliopsoas"],
+  "3-10": ["ti", "mr", "Spinal articulation; spine and hamstring flexibility"],
+  "3-11": ["ti", "mr", "Torso control; spinal flexibility"],
+  "3-12": ["lb", "ub", "Quad strength and stretch; posterior shoulder holds the straps"],
+  "3-13": ["ub", "wbm", "Shoulder strength; full-bodied integration"],
+  "3-14": ["ub", "wbm", "Shoulder strength; full-bodied integration"],
+  "3-15": ["ub", "wbm", "Shoulder strength; full-bodied integration"],
+  "3-16": ["ub", "wbm", "Shoulder strength; full-bodied integration"],
+  "3-17": ["ti", "ub", "Torso strength; scapular stabilizers and chest"],
+  "3-18": ["ti", "ub", "Torso strength; scapular stabilizers"],
+  "3-19": ["ti", "ub", "Lateral torso strength; rotator cuff and scapulae"],
+  "3-20": ["mr", "lb", "Hip flexor, adductor, hamstring stretch under load"]
+};
+DATA.forEach(e => { const v = MP[e.m + "-" + e.n]; e.pri = v[0]; e.sec = v[1]; e.why = v[2]; });
+// prerequisite exercises from each manual's "PR:/Prerequisites:" line (non-exercise conditions left out)
+const PRE = {
+  "1-4": "Mat Hundred", "1-10": "Reformer Roll Downs, Cadillac Roll Downs", "1-11": "Mat Pelvic Press",
+  "1-14": "Mat Plank", "1-15": "Reformer Long Stretch",
+  "2-4": "Mat or Reformer Hundred", "2-7": "Coordination", "2-8": "Reformer Pulling Straps", "2-9": "Mat Swimming",
+  "2-10": "Reformer Roll Downs, Trapeze Table Roll Downs", "2-11": "Reformer Roll Downs, Trapeze Table Roll Downs",
+  "2-12": "Reformer Mermaid", "2-13": "Reformer Advanced Abdominals", "2-14": "Reformer Knee Stretch", "2-15": "Elephant",
+  "2-16": "Reformer Knee Stretch", "2-17": "Mat Cat Cow, Reformer Pelvic Lift", "2-19": "Reformer Seated Arm Work",
+  "2-21": "Reformer Rowing Front I", "2-22": "Mat Corkscrew",
+  "3-1": "Mat Double Leg Kick", "3-2": "Mat Teaser", "3-3": "Ladder Barrel Horseback",
+  "3-4": "Mat Swan, Swan Dive, Ladder Barrel Swan Dive", "3-5": "Mat Swan Rocking or Swan Dive, Reformer LB Swan",
+  "3-6": "Mat Rocking", "3-7": "Roll Down", "3-8": "Reformer SB Abdominals (flat back)",
+  "3-9": "Mat Double Leg Stretch, Double Straight Leg Stretch, Reformer Kneeling Abdominals",
+  "3-10": "Short Spine Massage", "3-11": "Mat Roll Over and Jackknife, Reformer Short Spine", "3-12": "Reformer Chest Expansion",
+  "3-13": "Mat Leg Pull Up, Reformer Elephant", "3-14": "Reformer Tendon Stretch, Mat Leg Pull Up",
+  "3-15": "Reformer Long Stretch, Elephant", "3-16": "Reformer Long Stretch, Twist, Mat Mermaid and Twist",
+  "3-17": "Mat Leg Pull Down", "3-18": "Mat Leg Pull Up", "3-19": "Mat Side Plank, Twist, Mermaid", "3-20": "Standing/Side Splits"
+};
+DATA.forEach(e => { e.pre = PRE[e.m + "-" + e.n] || ""; });
+// general readiness from the same Prerequisites lines (not exercises)
+const READY = {
+  "1-2": "Comfortable with spinal flexion", "1-5": "Comfortable in all fours position", "1-6": "Comfortable in all fours position",
+  "1-7": "Adequate hamstring flexibility, ability to stabilize the back", "1-8": "Ability to lie prone", "1-9": "Ability to lie prone",
+  "1-12": "Comfortable in all fours position", "1-13": "Comfortable in starting position", "1-16": "Comfortable in starting position",
+  "1-17": "Ability to sit comfortably", "1-18": "Ability to stand comfortably",
+  "2-5": "Adequate hamstring flexibility, comfortable with spinal flexion",
+  "2-6": "Adequate hamstring flexibility, ability to tolerate hip and lumbar flexion", "2-8": "Comfortable prone",
+  "2-12": "Ability to laterally flex comfortably", "2-13": "Ability to extend lumbar, adequate hamstring flexibility",
+  "2-17": "Strong arms and wrists, adequate back flexibility", "2-18": "Comfortable in kneeling position with the hips off the heels",
+  "2-19": "Torso stability in kneeling", "2-20": "Ability to sit up with legs straight out from hips",
+  "2-21": "Ability to sit up with legs straight out from hips",
+  "3-7": "Hamstring/back flexibility to sit up with the legs straight out from the hips, strong shoulders",
+  "3-8": "Hamstring and back flexibility, strong abdominals", "3-9": "Lumbar stability",
+  "3-12": "Torso stability in kneeling, quadriceps strength", "3-13": "Adequate hamstring flexibility, adequate shoulder strength",
+  "3-14": "Shoulder flexibility and strength", "3-15": "Strong torso stability", "3-16": "Strong torso stability",
+  "3-17": "Shoulder strength and flexibility", "3-18": "Shoulder strength and flexibility",
+  "3-20": "Adequate adductor and hamstring flexibility, excellent balance"
+};
+DATA.forEach(e => { e.ready = READY[e.m + "-" + e.n] || ""; });
+// Pre-Pilates: Movement Principles studio exercises (+ "Pilates and Lower Back Pain" slides). [group, name, primary, secondary, description]
+const PP = [
+  ["Breathing", "Diaphragmatic (Belly) Breathing", "ti", "mr", "Inhale fills the belly from the pelvis up; exhale draws the abs toward the spine. Calming breath for when a sustained ab contraction isn't needed."],
+  ["Breathing", "Lateral (Rib) Breathing", "ti", "mr", "Hands on the lower ribs; breathe into the sides and back of the ribs while the abs stay engaged. Use when a sustained ab contraction is needed."],
+  ["Breathing", "One Lung Breathing", "ti", "mr", "Side bend with the bottom hand down; breathe into the top lung. Helps lateral flexion, scoliosis (concave side) and lung conditions."],
+  ["Inner Unit", "Pelvic Clock", "ti", "mr", "Supine, knees bent; tilt the pelvis 12–6 and 3–9, then circle, to find neutral and release back and hip tension."],
+  ["Inner Unit", "Fingertip Abdominals", "ti", "", "Fingertips just inside the hip bones; draw the abs in without moving the spine to feel the TA engage."],
+  ["Inner Unit", "All Fours Abdominals", "ti", "", "Neutral all fours; inhale and let the belly drop, exhale and lift the abs without moving the back. Finds TA and neutral spine."],
+  ["Inner Unit", "Pelvic Floor Engagement", "ti", "", "Draw the pelvic bones together as if closing the pelvic floor; builds awareness and strength."],
+  ["Inner Unit", "Flat Back Bridging", "ti", "lb", "Supine; engage the abs and lift the pelvis with a neutral spine, no curl. Multifidi, erectors, glutes, hamstrings."],
+  ["Inner Unit", "Standing Multifidi Engagement", "ti", "", "Fingertips beside the spine at L3; tilt the torso forward and feel both sides fire evenly."],
+  ["Inner Unit", "Single Leg Multifidi", "ti", "lb", "Lunge stance, fingers at L3; shift weight forward and back and compare the two sides."],
+  ["Inner Unit", "Neutral Squats", "ti", "lb", "Legs parallel; exhale to bend hips, knees and ankles with the torso tilted forward in neutral. Inner unit plus leg alignment."],
+  ["Inner Unit", "Knee Bend Variation", "lb", "ti", "Legs turned out, wider than hips; bend the knees keeping the torso upright."],
+  ["Lumbopelvic Stability", "Marching (Supine)", "ti", "lb", "Supine, feet down; lift one foot to tabletop without the back moving. A quick test of lumbopelvic stability."],
+  ["Lumbopelvic Stability", "Toe Taps", "ti", "lb", "Legs in tabletop; lower one foot toward the floor without the back moving, then alternate."],
+  ["Lumbopelvic Stability", "Diagonal Press: AOS & POS", "ti", "", "Supine, one leg lifted; opposite hand presses the inner thigh (AOS), then the free hand and foot press into the floor (POS)."],
+  ["Lumbopelvic Stability", "Dead Bug", "ti", "", "Legs tabletop, arms to the ceiling; lower one foot and the opposite arm overhead, back still."],
+  ["Lumbopelvic Stability", "Bridge Marching", "ti", "lb", "Bridge up, then lift one foot at a time keeping the hips level. Hamstrings and glutes."],
+  ["Lumbopelvic Stability", "Swimming Prep: Single Arm / Single Leg", "ti", "lb", "Prone, lower abs lifted; lift one arm or one leg at a time without rocking. Back extensors and the POS."],
+  ["Lumbopelvic Stability", "Swimming", "ti", "lb", "Prone; lift the opposite arm and leg and switch quickly, keeping the centre still."],
+  ["Lumbopelvic Stability", "Opposite Arm/Leg Reach Prep", "ti", "", "All fours; lift and replace one hand or one leg without moving the back."],
+  ["Lumbopelvic Stability", "Opposite Arm/Leg Reach", "ti", "wbm", "All fours; reach one arm and the opposite leg long with the spine still. Balances all the outer units."],
+  ["Lumbopelvic Stability", "Standing Diagonal Press: AOS & POS", "ti", "wbm", "Standing, knee lifted; opposite hand presses the inner thigh, other hand presses back as if into a wall."],
+  ["Lumbopelvic Stability", "Standing Marching", "ti", "wbm", "Stand tall and lift one foot then the other. Lumbopelvic stability for walking and running."],
+  ["Lumbopelvic Stability", "Bananas", "ti", "lb", "Side lying; lift both legs together. Trains the lateral system (Pilates and Lower Back Pain slide)."],
+  ["Spinal Mobility", "Cat/Cow", "ti", "mr", "All fours; exhale and round with eyes to navel (flexion), inhale and arch with eyes forward (extension)."],
+  ["Spinal Mobility", "Tail Wag", "ti", "mr", "All fours, one foot lifted; swing it side to side as the eyes follow. Lateral flexion of spine and hips."],
+  ["Spinal Mobility", "Abdominal Curls", "ti", "", "Supine, hands behind the head; draw ribs to hips and lift the head and upper back. Spinal flexion."],
+  ["Spinal Mobility", "Oblique Abdominals", "ti", "", "Curl up with rotation toward the opposite hip. Spinal flexion plus rotation."],
+  ["Spinal Mobility", "Rockets", "ti", "ub", "Prone, arms by the sides palms up; reach the hands to the feet and lift the head and upper back. Thoracic extension."],
+  ["Spinal Mobility", "Mini Swan", "ti", "ub", "Prone on forearms; slide the shoulder blades down and lift into upper back extension."],
+  ["Spinal Mobility", "Swan", "ti", "ub", "From Mini Swan, straighten the arms into fuller back extension with the abs engaged."],
+  ["Spinal Mobility", "Seated Side Stretch", "ti", "mr", "Sit tall, one hand down and the other arm overhead; side bend. Lateral flexion."],
+  ["Spinal Mobility", "Seated Twist", "ti", "mr", "Sit tall with arms crossed; rotate to one side, back to centre, then the other side."],
+  ["Spinal Mobility", "Standing Roll Down", "ti", "mr", "Knees soft; roll down from the head, inhale at the bottom, exhale to restack."],
+  ["Spinal Mobility", "Standing Flexion", "ti", "mr", "Stand neutral; round the spine forward as the arms reach in a circle."],
+  ["Spinal Mobility", "Standing Extension", "ti", "mr", "Stand neutral; extend the spine as the arms open back."],
+  ["Spinal Mobility", "Standing Lateral Flexion", "ti", "mr", "One hand on the hip, the other arm overhead; side bend."],
+  ["Spinal Mobility", "Full Body Rotation", "ti", "wbm", "Stand with arms at the sides; rotate right, centre, then left."],
+  ["Lower Body", "Marching: Supine, Seated, Standing", "lb", "ti", "Lift one knee above 90° without moving the pelvis. Hip flexors (psoas, iliacus); harder seated and standing."],
+  ["Lower Body", "Hip Extension: Prone, All Fours, Standing", "lb", "ti", "Extend one leg behind without moving the spine. Glutes and hamstrings."],
+  ["Lower Body", "Hip Adduction: Side Lying, Seated, Standing", "lb", "ti", "Lift the bottom leg side lying, squeeze a ball seated, or cross one leg in front standing. Inner thigh."],
+  ["Lower Body", "Hip Abduction: Side Lying, Stepping Out, Standing", "lb", "wbm", "Lift the top leg side lying, step out to the side, or lift a leg sideways standing. Outer thigh and lateral stability."],
+  ["Lower Body", "Supine Ankle Series", "lb", "mr", "One leg up; ankle circles, point and flex, inversion and eversion."],
+  ["Lower Body", "Seated Plantar & Dorsi Flexion", "lb", "", "Seated; articulate the foot to point, then flex. Good for older clients and balance issues."],
+  ["Lower Body", "Heel Raise", "lb", "wbm", "Stand neutral; rise onto the balls of the feet and lower with control."],
+  ["Lower Body", "Marching with Arm Swings", "wbm", "lb", "March in place with opposite arm swing; the torso counter-rotates against the pelvis."],
+  ["Lower Body", "Upright Squat / Plié / Knee Bend", "lb", "", "Narrow parallel or wide turned-out stance; bend the knees with heels down and torso upright. Warms hips, knees, ankles."],
+  ["Lower Body", "Squat & Sumo Squat", "lb", "wbm", "Bend the knees, hinge forward and sit the hips back, arms forward to counterbalance. Sumo = wide turned-out stance."],
+  ["Lower Body", "Lunges: Upright (90/90)", "lb", "wbm", "Step one leg back and bend both knees to 90°."],
+  ["Lower Body", "Tilt / Forward Lunge", "lb", "wbm", "Step forward and bend the front knee, tilting into one line from head to back heel."],
+  ["Upper Body", "Lateral Rotation", "ub", "", "Band between the hands, elbows bent; rotate the arms out. Infraspinatus and teres minor."],
+  ["Upper Body", "Medial Rotation", "ub", "", "Band anchored; rotate the arm in. Subscapularis."],
+  ["Upper Body", "Arm Raises: Together & Alternating", "ub", "ti", "Supine; raise both arms, or one at a time, overhead and back. Shoulder warm-up; arms connect to torso."],
+  ["Upper Body", "Angels in the Snow", "ub", "mr", "Supine; one arm slides up as the other slides down, then add a head turn and knee drop."],
+  ["Upper Body", "Telescope Arms", "ub", "mr", "Side lying, arms forward; slide the top arm forward as the torso rotates, then back."],
+  ["Upper Body", "Pinwheel", "ub", "mr", "Side lying; the top arm glides forward, circles overhead and behind, and returns to stack."],
+  ["Planks & Push Ups", "Plank Prep: All Fours Single Arm Lift", "ub", "ti", "All fours; lift and replace one hand without the shoulder blade or back moving."],
+  ["Planks & Push Ups", "Sternum Drop", "ub", "ti", "All fours; drop the sternum so the blades squeeze together, then press away so they slide apart."],
+  ["Planks & Push Ups", "Modified (Kneeling) Plank", "ub", "ti", "From all fours, press the hips forward to one long line from head to knees."],
+  ["Planks & Push Ups", "Plank & Forearm Plank", "ub", "ti", "Hands (or forearms) under the shoulders; step back into one long line from head to heels."],
+  ["Planks & Push Ups", "Plank with One Limb Lifted", "ub", "ti", "From plank, lift one leg or one arm, return, then switch."],
+  ["Planks & Push Ups", "Back Plank Prep: Elevation & Depression", "ub", "ti", "Seated with hands behind; let the shoulder blades rise, then press them down."],
+  ["Planks & Push Ups", "Back Plank: Modified & Full", "ub", "lb", "Hands behind; lift the hips to one line from shoulders to knees (knees bent) or to feet (legs straight)."],
+  ["Planks & Push Ups", "Back Plank Marching & Leg Lift", "ub", "lb", "In back plank, lift one leg at a time keeping the hips level."],
+  ["Planks & Push Ups", "Side Plank Prep", "ti", "ub", "Forearm and knees down; lift the hips forward into one line from head to knees."],
+  ["Planks & Push Ups", "Side Plank & Side Forearm Plank", "ti", "ub", "Hand or forearm under the shoulder; lift the hips into one line from head to feet. Lateral system."],
+  ["Planks & Push Ups", "Side Plank: Legs Stacked & Leg Lift", "ti", "ub", "Stack the feet for more balance challenge, then lift the top leg."],
+  ["Planks & Push Ups", "All Fours Triceps Push Up", "ub", "ti", "Hands ahead of the shoulders; bend the elbows to lower onto the forearms, hips over knees."],
+  ["Planks & Push Ups", "Wall & Incline Push Up", "ub", "ti", "Hands on a wall or raised surface; bend and straighten in one body line. The lower the surface, the harder."],
+  ["Planks & Push Ups", "Modified Push Up", "ub", "ti", "From kneeling plank, bend the elbows and press back up."],
+  ["Planks & Push Ups", "Full Push Up", "ub", "wbm", "From plank, lower the torso and press up, coordinating the shoulder blades."],
+  ["Arm Movements", "Chest Press", "ub", "", "Hands by the shoulders; press forward (bent → straight). Anterior shoulder."],
+  ["Arm Movements", "Biceps Curl", "ub", "", "Bend the elbows to bring the hands to the shoulders (straight → bent). Harder the higher the arms."],
+  ["Arm Movements", "Row", "ub", "", "Arms forward; bend the elbows and draw the blades together (straight → bent). Low, mid or high."],
+  ["Arm Movements", "Triceps Press", "ub", "", "Straighten the elbow against resistance (bent → straight)."],
+  ["Arm Movements", "Triceps Dip", "ub", "ti", "In back plank or on a chair; bend the elbows to lower, then press up."],
+  ["Arm Movements", "Overhead Press", "ub", "", "Hands at shoulder height; press the arms overhead."],
+  ["Arm Movements", "Lateral Press", "ub", "", "Elbows bent at shoulder height; press out to the side in scaption."],
+  ["Arm Movements", "Pulling Down", "ub", "", "Arms overhead; bend the elbows to bring the resistance toward the chest."],
+  ["Arm Movements", "Forward Raise", "ub", "", "Straight arms lift forward to chest height or overhead. Anterior shoulder."],
+  ["Arm Movements", "Side Raise", "ub", "", "Straight arms lift out to the side. Deltoid."],
+  ["Arm Movements", "Pull Back", "ub", "", "Straight arms pull back, can pass behind the torso. Triceps and posterior shoulder."]
+];
+PP.forEach(([g, name, pri, sec, desc], i) => DATA.push({ m: 0, n: i + 1, pp: true, g, name, pri, sec, why: desc, purpose: [], reps: "", level: "", pre: "", ready: "" }));
+const state = { m: "all", p: "all", q: "", quiz: false };
+try { Object.assign(state, JSON.parse(localStorage.getItem("cheat-state") || "{}"), { q: "" }); } catch (e) {}
+if (state.p !== "all" && !PRIN[state.p]) state.p = "all";
+const save = () => { try { localStorage.setItem("cheat-state", JSON.stringify({ m: state.m, p: state.p, quiz: state.quiz })); } catch (e) {} };
+document.getElementById("pkey").innerHTML = Object.entries(PRIN).map(([k, p]) => {
+  const pri = DATA.filter(e => e.pri === k).length, sec = DATA.filter(e => e.sec === k).length;
+  return `<div class="pk p-${k}"><h3><span class="dot"></span>${p.name.replace(/&/g, "&amp;")}</h3><p>${p.def}</p><span class="cnt">${pri} primary · ${sec} secondary</span></div>`;
+}).join("");
+document.getElementById("pseg").innerHTML = `<button type="button" id="p-all" data-p="all">All MPs</button>` +
+  Object.entries(PRIN).map(([k, p]) => `<button type="button" id="p-${k}" data-p="${k}" title="${p.name}"><span class="dot p-${k}"></span>${p.short.replace(/&/g, "&amp;")}</button>`).join("");
+const strip = s => s.replace(/<[^>]+>/g, "");
+const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+function hl(htmlStr, q) {
+  if (!q) return htmlStr;
+  const re = new RegExp("(" + esc(q) + ")", "gi");
+  return htmlStr.split(/(<[^>]+>)/).map(p => p.startsWith("<") ? p : p.replace(re, "<mark>$1</mark>")).join("");
+}
+function mpRows(e, q) {
+  const nm = k => PRIN[k].name.replace(/&/g, "&amp;");
+  return `<div class="row pri p-${e.pri}"><span class="lbl">Primary MP</span><span class="dot"></span><span class="nm">${nm(e.pri)}</span></div>` +
+    (e.sec ? `<div class="row p-${e.sec}"><span class="lbl">Secondary</span><span class="dot"></span><span class="nm">${nm(e.sec)}</span></div>` : "");
+}
+function ppCard(e, q) {
+  return `<article class="card" tabindex="0" data-id="${e.m}-${e.n}">
+    <div class="head solo"><div class="num">Pre-Pilates · ${e.g}</div><h3 class="name">${hl(e.name.replace(/&/g, "&amp;"), q)}</h3></div>
+    <div class="mp">${mpRows(e, q)}</div>
+    <p class="desc">${hl(e.why.replace(/&/g, "&amp;"), q)}</p>
+    <div class="foot"><span class="hint">Tap to reveal</span></div>
+  </article>`;
+}
+function card(e, q) {
+  if (e.pp) return ppCard(e, q);
+  const parts = e.reps.match(/^([\d–]+|variable)\s*(.*)$/);
+  const big = parts ? parts[1] : e.reps, unit = parts && parts[2] ? "reps " + parts[2] : "reps";
+  const long = big.length > 5;
+  const note = "";
+  return `<article class="card" tabindex="0" data-id="${e.m}-${e.n}">
+    <div class="head">
+      <div class="num">R${e.m} · #${e.n}</div>
+      <div class="reps"><span class="r ${long ? "long" : ""}">${big}</span><span class="u">${unit}</span></div>
+      <h3 class="name">${hl(e.name.replace(/&/g, "&amp;"), q)}</h3>
+    </div>
+    <div class="chips"><span class="chip">${e.level}</span>${e.pre ? `<span class="chip pre"><span class="pl">PR</span>${hl(e.pre, q)}</span>` : ""}</div>
+    <div class="mp">
+      ${mpRows(e, q)}
+      <div class="why">${hl(e.why, q)}</div>
+    </div>
+    <ul class="purpose">${e.purpose.map(p => `<li>${hl(p, q)}</li>`).join("")}</ul>
+    ${note}
+    <div class="foot">${e.ready ? `<p class="ready"><span class="pl">Client needs</span>${hl(e.ready, q)}</p>` : ""}<span class="hint">Tap to reveal</span></div>
+  </article>`;
+}
+const opened = new Set();
+function render() {
+  const q = state.q.trim().toLowerCase();
+  const rows = DATA.filter(e =>
+    (state.m === "all" || (state.m === "r" ? e.m > 0 : String(e.m) === state.m)) &&
+    (state.p === "all" || e.pri === state.p) &&
+    (!q || (e.name + " " + e.pre + " " + e.ready + " " + e.why + " " + PRIN[e.pri].name + " " + (e.sec ? PRIN[e.sec].name : "") + " " + (e.g || "") + " " + strip(e.purpose.join(" "))).toLowerCase().includes(q)));
+  const main = document.getElementById("main");
+  let out = "";
+  for (const m of [0, 1, 2, 3]) {
+    const r = rows.filter(e => e.m === m);
+    if (!r.length) continue;
+    out += `<section class="manual" id="r${m}"><h2>${m ? "Reformer " + m : "Pre-Pilates"} <span>${r.length} shown</span></h2><div class="grid">${r.map(e => card(e, q)).join("")}</div></section>`;
+  }
+  main.innerHTML = out || '<p class="empty">No exercises match. Try a muscle name like "hamstrings" or clear the filters.</p>';
+  main.querySelectorAll(".card").forEach(c => { if (opened.has(c.dataset.id)) c.classList.add("open"); });
+  document.getElementById("count").textContent = `${rows.length} of ${DATA.length}`;
+  document.querySelectorAll("[data-m]").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === state.m));
+  document.querySelectorAll("[data-p]").forEach(b => b.setAttribute("aria-pressed", b.dataset.p === state.p));
+  document.body.classList.toggle("quizzing", state.quiz);
+  document.getElementById("quiz").checked = state.quiz;
+}
+document.querySelectorAll("[data-m]").forEach(b => b.addEventListener("click", () => { state.m = b.dataset.m; save(); render(); }));
+document.querySelectorAll("[data-p]").forEach(b => b.addEventListener("click", () => { state.p = b.dataset.p; save(); render(); }));
+document.getElementById("q").addEventListener("input", ev => { state.q = ev.target.value; render(); });
+document.getElementById("quiz").addEventListener("change", ev => { state.quiz = ev.target.checked; opened.clear(); save(); render(); });
+function toggle(c) {
+  if (!state.quiz || !c) return;
+  c.classList.toggle("open");
+  c.classList.contains("open") ? opened.add(c.dataset.id) : opened.delete(c.dataset.id);
+}
+document.getElementById("main").addEventListener("click", ev => toggle(ev.target.closest(".card")));
+document.getElementById("main").addEventListener("keydown", ev => {
+  if ((ev.key === "Enter" || ev.key === " ") && ev.target.classList.contains("card")) { ev.preventDefault(); toggle(ev.target); }
+});
+const h = location.hash.replace("#", "");
+if (/^r[123]$/.test(h)) state.m = h[1];
+render();
+</script>
+
+</body>
+</html>
