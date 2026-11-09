@@ -400,7 +400,93 @@ const PP = [
   ["Arm Movements", "Side Raise (???)", "ub", "", "Straight arms lift out to the side. Deltoid."],
   ["Arm Movements", "Pull Back (???)", "ub", "", "Straight arms pull back, can pass behind the torso. Triceps and posterior shoulder."]
 ];
-PP.forEach(([g, name, pri, sec, desc], i) => DATA.push({ m: 0, n: i + 1, pp: true, g, name, pri, sec, why: desc, purpose: [], reps: "", level: "", pre: "", ready: "" }));
+// Pre-Pilates purpose bullets, in the same order as PP
+const PPP = [
+  ["Increase lung capacity", "Engage the core on the exhale", "Calm and focus the mind"],
+  ["Loosen the ribs and release the mid back", "Increase lung capacity", "Breathe while keeping the abs engaged"],
+  ["Increase lung expansion in lateral flexion", "Help scoliosis (breathe into the concave side)", "Help lung problems, e.g. asthma"],
+  ["Find neutral spine", "Release tension in the back and hips"],
+  ["Engage TA"],
+  ["Engage TA", "Find neutral spine"],
+  ["Strengthen the pelvic floor", "Increase pelvic floor awareness"],
+  ["Increase spinal stability", "Strengthen multifidi, erector spinae, glutes and hamstrings"],
+  ["Engage multifidi"],
+  ["Engage multifidi", "Find imbalances between the two sides of the spine"],
+  ["Activate the inner unit", "Train lower body strength and alignment"],
+  ["Train lower body strength and alignment"],
+  ["Experience lumbopelvic stability"],
+  ["Experience lumbopelvic stability"],
+  ["Experience the anterior and posterior oblique slings", "Integrate the slings with the limbs"],
+  ["Strengthen lumbopelvic stability"],
+  ["Strengthen hamstrings and glutes", "Increase lumbopelvic stability"],
+  ["Strengthen back extensors and the POS", "Challenge lumbopelvic stability"],
+  ["Strengthen the POS: back extensors, glutes, hamstrings", "Challenge lumbopelvic stability"],
+  ["Develop lumbopelvic stability"],
+  ["Develop lumbopelvic stability", "Balance all the outer units"],
+  ["Experience the AOS and POS standing"],
+  ["Train lumbopelvic stability for walking and running"],
+  ["Strengthen the lateral system"],
+  ["Mobilize the spine in flexion and extension"],
+  ["Mobilize the spine and hips (lateral flexion)"],
+  ["Strengthen abdominals", "Lift the head in line with the torso"],
+  ["Strengthen obliques", "Functional core strength and lumbopelvic stability"],
+  ["Strengthen the upper back", "Increase thoracic extension"],
+  ["Increase thoracic extension"],
+  ["Increase spinal extension"],
+  ["Increase lateral flexion"],
+  ["Increase rotation"],
+  ["Enhance and strengthen spinal flexion"],
+  ["Enhance and strengthen spinal flexion"],
+  ["Enhance and strengthen spinal extension"],
+  ["Enhance and strengthen lateral flexion"],
+  ["Enhance full body spinal rotation"],
+  ["Strengthen hip flexors (psoas, iliacus)", "Lumbopelvic stability", "Balance and coordination (standing)"],
+  ["Strengthen hip extensors: glutes and hamstrings", "Mobilize the hip (all fours)", "Balance and lumbopelvic stability (standing)"],
+  ["Strengthen adductors", "Challenge balance and lumbopelvic stability"],
+  ["Strengthen hip abductors", "Train lateral stability and balance"],
+  ["Three-dimensional ankle strength and mobility"],
+  ["Foot articulation with little weight", "Plantar proprioception; good for older clients"],
+  ["Ankle strength and mobility, weight bearing"],
+  ["Train counter-rotation of torso and pelvis"],
+  ["Warm up hips, knees and ankles", "Strengthen glutes, hamstrings, quads (turned out)"],
+  ["Balanced strength and power of hamstrings, glutes and quads"],
+  ["Balanced strength and power of hamstrings, glutes and quads"],
+  ["Balanced strength and power of hamstrings, glutes and quads"],
+  ["Strengthen infraspinatus and teres minor", "Support the humeral head"],
+  ["Strengthen subscapularis", "Support the humeral head"],
+  ["Warm up the shoulders", "Integrate the arms with the torso"],
+  ["Improve scapular mobility", "Coordinate spine, shoulder, arm and head"],
+  ["Improve scapular mobility", "Organize scapulohumeral rhythm"],
+  ["Improve scapular mobility", "Coordinate spine, shoulder, arm and head"],
+  ["Basic scapular stability"],
+  ["Basic scapular stability and mobility"],
+  ["Basic scapular stability"],
+  ["Scapular stability", "Core strength and posture"],
+  ["Scapular stability", "Core strength and whole body integration"],
+  ["Teach scapular stability"],
+  ["Scapular stability", "Strengthen back and hip extensors"],
+  ["Scapular stability", "Strengthen back and hip extensors"],
+  ["Strengthen the lateral system"],
+  ["Strengthen hip abductors, obliques and shoulder stabilizers"],
+  ["Strengthen the lateral system", "Challenge balance"],
+  ["Scapular control", "Upper body strength"],
+  ["Scapular control", "Upper body and core strength"],
+  ["Scapular control", "Upper body and core strength"],
+  ["Scapular control", "Upper body and core strength", "Whole body movement"],
+  ["Strengthen the anterior shoulder (pushing)"],
+  ["Strengthen the biceps (pulling)"],
+  ["Strengthen the posterior shoulder (pulling)"],
+  ["Strengthen the triceps (pushing)"],
+  ["Strengthen the triceps (pushing down)"],
+  ["Strengthen the shoulders (pushing overhead)"],
+  ["Strengthen the shoulders (pushing out to the side)"],
+  ["Strengthen the lats (pulling down)"],
+  ["Strengthen the anterior shoulder"],
+  ["Strengthen the deltoid"],
+  ["Strengthen the triceps and posterior shoulder"]
+];
+if (PPP.length !== PP.length) console.error("PPP length", PPP.length, PP.length);
+PP.forEach(([g, name, pri, sec, desc], i) => DATA.push({ m: 0, n: i + 1, pp: true, g, name, pri, sec, why: desc, purpose: PPP[i] || [], reps: "", level: "", pre: "", ready: "" }));
 const state = { m: "all", p: "all", q: "", quiz: false };
 try { Object.assign(state, JSON.parse(localStorage.getItem("cheat-state") || "{}"), { q: "" }); } catch (e) {}
 if (state.p !== "all" && !PRIN[state.p]) state.p = "all";
@@ -428,6 +514,7 @@ function ppCard(e, q) {
     <div class="head solo"><div class="num">Pre-Pilates · ${e.g}</div><h3 class="name">${hl(e.name.replace(/&/g, "&amp;"), q)}</h3></div>
     <div class="mp">${mpRows(e, q)}</div>
     <p class="desc">${hl(e.why.replace(/&/g, "&amp;"), q)}</p>
+    <ul class="purpose">${e.purpose.map(p => `<li>${hl(p.replace(/&/g, "&amp;"), q)}</li>`).join("")}</ul>
     <div class="foot"><span class="hint">Tap to reveal</span></div>
   </article>`;
 }
