@@ -180,8 +180,6 @@ footer p { max-width: 70ch; margin: 0 0 6px; }
   <div class="wrap">
     <div class="seg" role="group" aria-label="Manual">
       <button type="button" id="m-all" data-m="all">All</button>
-      <button type="button" id="m-0" data-m="0">Pre-P</button>
-      <button type="button" id="m-r" data-m="r">R1–3</button>
       <button type="button" id="m-1" data-m="1">R1</button>
       <button type="button" id="m-2" data-m="2">R2</button>
       <button type="button" id="m-3" data-m="3">R3</button>
@@ -315,181 +313,10 @@ const READY = {
   "3-20": "Adequate adductor and hamstring flexibility, excellent balance"
 };
 DATA.forEach(e => { e.ready = READY[e.m + "-" + e.n] || ""; });
-// Pre-Pilates: Movement Principles studio exercises (+ "Pilates and Lower Back Pain" slides). [group, name, primary, secondary, description]
-const PP = [
-  ["Breathing", "Diaphragmatic (Belly) Breathing (kneeling)", "ti", "mr", "Inhale fills the belly from the pelvis up; exhale draws the abs toward the spine. Calming breath for when a sustained ab contraction isn't needed."],
-  ["Breathing", "Lateral (Rib) Breathing (???)", "ti", "mr", "Hands on the lower ribs; breathe into the sides and back of the ribs while the abs stay engaged. Use when a sustained ab contraction is needed."],
-  ["Breathing", "One Lung Breathing (???)", "ti", "mr", "Side bend with the bottom hand down; breathe into the top lung. Helps lateral flexion, scoliosis (concave side) and lung conditions."],
-  ["Inner Unit", "Pelvic Clock (supine)", "ti", "mr", "Supine, knees bent; tilt the pelvis 12–6 and 3–9, then circle, to find neutral and release back and hip tension."],
-  ["Inner Unit", "Fingertip Abdominals (supine)", "ti", "", "Fingertips just inside the hip bones; draw the abs in without moving the spine to feel the TA engage."],
-  ["Inner Unit", "All Fours Abdominals (all fours)", "ti", "", "Neutral all fours; inhale and let the belly drop, exhale and lift the abs without moving the back. Finds TA and neutral spine."],
-  ["Inner Unit", "Pelvic Floor Engagement (???)", "ti", "", "Draw the pelvic bones together as if closing the pelvic floor; builds awareness and strength."],
-  ["Inner Unit", "Flat Back Bridging (supine)", "ti", "lb", "Supine; engage the abs and lift the pelvis with a neutral spine, no curl. Multifidi, erectors, glutes, hamstrings."],
-  ["Inner Unit", "Standing Multifidi Engagement (standing)", "ti", "", "Fingertips beside the spine at L3; tilt the torso forward and feel both sides fire evenly."],
-  ["Inner Unit", "Single Leg Multifidi (standing, lunge stance)", "ti", "lb", "Lunge stance, fingers at L3; shift weight forward and back and compare the two sides."],
-  ["Inner Unit", "Neutral Squats (standing)", "ti", "lb", "Legs parallel; exhale to bend hips, knees and ankles with the torso tilted forward in neutral. Inner unit plus leg alignment."],
-  ["Inner Unit", "Knee Bend Variation (standing)", "lb", "ti", "Legs turned out, wider than hips; bend the knees keeping the torso upright."],
-  ["Lumbopelvic Stability", "Marching (supine)", "ti", "lb", "Supine, feet down; lift one foot to tabletop without the back moving. A quick test of lumbopelvic stability."],
-  ["Lumbopelvic Stability", "Toe Taps (supine)", "ti", "lb", "Legs in tabletop; lower one foot toward the floor without the back moving, then alternate."],
-  ["Lumbopelvic Stability", "Diagonal Press: AOS & POS (supine)", "ti", "", "Supine, one leg lifted; opposite hand presses the inner thigh (AOS), then the free hand and foot press into the floor (POS)."],
-  ["Lumbopelvic Stability", "Dead Bug (supine)", "ti", "", "Legs tabletop, arms to the ceiling; lower one foot and the opposite arm overhead, back still."],
-  ["Lumbopelvic Stability", "Bridge Marching (supine)", "ti", "lb", "Bridge up, then lift one foot at a time keeping the hips level. Hamstrings and glutes."],
-  ["Lumbopelvic Stability", "Swimming Prep: Single Arm / Single Leg (prone)", "ti", "lb", "Prone, lower abs lifted; lift one arm or one leg at a time without rocking. Back extensors and the POS."],
-  ["Lumbopelvic Stability", "Swimming (prone)", "ti", "lb", "Prone; lift the opposite arm and leg and switch quickly, keeping the centre still."],
-  ["Lumbopelvic Stability", "Opposite Arm/Leg Reach Prep (all fours)", "ti", "", "All fours; lift and replace one hand or one leg without moving the back."],
-  ["Lumbopelvic Stability", "Opposite Arm/Leg Reach (all fours)", "ti", "wbm", "All fours; reach one arm and the opposite leg long with the spine still. Balances all the outer units."],
-  ["Lumbopelvic Stability", "Standing Diagonal Press: AOS & POS (standing)", "ti", "wbm", "Standing, knee lifted; opposite hand presses the inner thigh, other hand presses back as if into a wall."],
-  ["Lumbopelvic Stability", "Standing Marching (standing)", "ti", "wbm", "Stand tall and lift one foot then the other. Lumbopelvic stability for walking and running."],
-  ["Lumbopelvic Stability", "Bananas (side lying)", "ti", "lb", "Side lying; lift both legs together. Trains the lateral system (Pilates and Lower Back Pain slide)."],
-  ["Spinal Mobility", "Cat/Cow (all fours)", "ti", "mr", "All fours; exhale and round with eyes to navel (flexion), inhale and arch with eyes forward (extension)."],
-  ["Spinal Mobility", "Tail Wag (all fours)", "ti", "mr", "All fours, one foot lifted; swing it side to side as the eyes follow. Lateral flexion of spine and hips."],
-  ["Spinal Mobility", "Abdominal Curls (supine)", "ti", "", "Supine, hands behind the head; draw ribs to hips and lift the head and upper back. Spinal flexion."],
-  ["Spinal Mobility", "Oblique Abdominals (supine)", "ti", "", "Curl up with rotation toward the opposite hip. Spinal flexion plus rotation."],
-  ["Spinal Mobility", "Rockets (prone)", "ti", "ub", "Prone, arms by the sides palms up; reach the hands to the feet and lift the head and upper back. Thoracic extension."],
-  ["Spinal Mobility", "Mini Swan (prone)", "ti", "ub", "Prone on forearms; slide the shoulder blades down and lift into upper back extension."],
-  ["Spinal Mobility", "Swan (prone)", "ti", "ub", "From Mini Swan, straighten the arms into fuller back extension with the abs engaged."],
-  ["Spinal Mobility", "Seated Side Stretch (seated)", "ti", "mr", "Sit tall, one hand down and the other arm overhead; side bend. Lateral flexion."],
-  ["Spinal Mobility", "Seated Twist (seated)", "ti", "mr", "Sit tall with arms crossed; rotate to one side, back to centre, then the other side."],
-  ["Spinal Mobility", "Standing Roll Down (standing)", "ti", "mr", "Knees soft; roll down from the head, inhale at the bottom, exhale to restack."],
-  ["Spinal Mobility", "Standing Flexion (standing)", "ti", "mr", "Stand neutral; round the spine forward as the arms reach in a circle."],
-  ["Spinal Mobility", "Standing Extension (standing)", "ti", "mr", "Stand neutral; extend the spine as the arms open back."],
-  ["Spinal Mobility", "Standing Lateral Flexion (standing)", "ti", "mr", "One hand on the hip, the other arm overhead; side bend."],
-  ["Spinal Mobility", "Full Body Rotation (standing)", "ti", "wbm", "Stand with arms at the sides; rotate right, centre, then left."],
-  ["Lower Body", "Marching (supine / seated / standing)", "lb", "ti", "Lift one knee above 90° without moving the pelvis. Hip flexors (psoas, iliacus); harder seated and standing."],
-  ["Lower Body", "Hip Extension (prone / all fours / standing)", "lb", "ti", "Extend one leg behind without moving the spine. Glutes and hamstrings."],
-  ["Lower Body", "Hip Adduction (side lying / seated / standing)", "lb", "ti", "Lift the bottom leg side lying, squeeze a ball seated, or cross one leg in front standing. Inner thigh."],
-  ["Lower Body", "Hip Abduction (side lying / standing)", "lb", "wbm", "Lift the top leg side lying, step out to the side, or lift a leg sideways standing. Outer thigh and lateral stability."],
-  ["Lower Body", "Supine Ankle Series (supine)", "lb", "mr", "One leg up; ankle circles, point and flex, inversion and eversion."],
-  ["Lower Body", "Seated Plantar & Dorsi Flexion (seated)", "lb", "", "Seated; articulate the foot to point, then flex. Good for older clients and balance issues."],
-  ["Lower Body", "Heel Raise (standing)", "lb", "wbm", "Stand neutral; rise onto the balls of the feet and lower with control."],
-  ["Lower Body", "Marching with Arm Swings (standing)", "wbm", "lb", "March in place with opposite arm swing; the torso counter-rotates against the pelvis."],
-  ["Lower Body", "Upright Squat / Plié / Knee Bend (standing)", "lb", "", "Narrow parallel or wide turned-out stance; bend the knees with heels down and torso upright. Warms hips, knees, ankles."],
-  ["Lower Body", "Squat & Sumo Squat (standing)", "lb", "wbm", "Bend the knees, hinge forward and sit the hips back, arms forward to counterbalance. Sumo = wide turned-out stance."],
-  ["Lower Body", "Lunges: Upright (90/90) (standing)", "lb", "wbm", "Step one leg back and bend both knees to 90°."],
-  ["Lower Body", "Tilt / Forward Lunge (standing)", "lb", "wbm", "Step forward and bend the front knee, tilting into one line from head to back heel."],
-  ["Upper Body", "Lateral Rotation (???)", "ub", "", "Band between the hands, elbows bent; rotate the arms out. Infraspinatus and teres minor."],
-  ["Upper Body", "Medial Rotation (???)", "ub", "", "Band anchored; rotate the arm in. Subscapularis."],
-  ["Upper Body", "Arm Raises: Together & Alternating (supine)", "ub", "ti", "Supine; raise both arms, or one at a time, overhead and back. Shoulder warm-up; arms connect to torso."],
-  ["Upper Body", "Angels in the Snow (supine)", "ub", "mr", "Supine; one arm slides up as the other slides down, then add a head turn and knee drop."],
-  ["Upper Body", "Telescope Arms (side lying)", "ub", "mr", "Side lying, arms forward; slide the top arm forward as the torso rotates, then back."],
-  ["Upper Body", "Pinwheel (side lying)", "ub", "mr", "Side lying; the top arm glides forward, circles overhead and behind, and returns to stack."],
-  ["Planks & Push Ups", "Plank Prep: All Fours Single Arm Lift (all fours)", "ub", "ti", "All fours; lift and replace one hand without the shoulder blade or back moving."],
-  ["Planks & Push Ups", "Sternum Drop (all fours)", "ub", "ti", "All fours; drop the sternum so the blades squeeze together, then press away so they slide apart."],
-  ["Planks & Push Ups", "Modified (Kneeling) Plank (kneeling plank)", "ub", "ti", "From all fours, press the hips forward to one long line from head to knees."],
-  ["Planks & Push Ups", "Plank & Forearm Plank (plank)", "ub", "ti", "Hands (or forearms) under the shoulders; step back into one long line from head to heels."],
-  ["Planks & Push Ups", "Plank with One Limb Lifted (plank)", "ub", "ti", "From plank, lift one leg or one arm, return, then switch."],
-  ["Planks & Push Ups", "Back Plank Prep: Elevation & Depression (seated)", "ub", "ti", "Seated with hands behind; let the shoulder blades rise, then press them down."],
-  ["Planks & Push Ups", "Back Plank: Modified & Full (back plank)", "ub", "lb", "Hands behind; lift the hips to one line from shoulders to knees (knees bent) or to feet (legs straight)."],
-  ["Planks & Push Ups", "Back Plank Marching & Leg Lift (back plank)", "ub", "lb", "In back plank, lift one leg at a time keeping the hips level."],
-  ["Planks & Push Ups", "Side Plank Prep (side lying)", "ti", "ub", "Forearm and knees down; lift the hips forward into one line from head to knees."],
-  ["Planks & Push Ups", "Side Plank & Side Forearm Plank (side plank)", "ti", "ub", "Hand or forearm under the shoulder; lift the hips into one line from head to feet. Lateral system."],
-  ["Planks & Push Ups", "Side Plank: Legs Stacked & Leg Lift (side plank)", "ti", "ub", "Stack the feet for more balance challenge, then lift the top leg."],
-  ["Planks & Push Ups", "All Fours Triceps Push Up (all fours)", "ub", "ti", "Hands ahead of the shoulders; bend the elbows to lower onto the forearms, hips over knees."],
-  ["Planks & Push Ups", "Wall & Incline Push Up (standing)", "ub", "ti", "Hands on a wall or raised surface; bend and straighten in one body line. The lower the surface, the harder."],
-  ["Planks & Push Ups", "Modified Push Up (kneeling plank)", "ub", "ti", "From kneeling plank, bend the elbows and press back up."],
-  ["Planks & Push Ups", "Full Push Up (plank)", "ub", "wbm", "From plank, lower the torso and press up, coordinating the shoulder blades."],
-  ["Arm Movements", "Chest Press (???)", "ub", "", "Hands by the shoulders; press forward (bent → straight). Anterior shoulder."],
-  ["Arm Movements", "Biceps Curl (???)", "ub", "", "Bend the elbows to bring the hands to the shoulders (straight → bent). Harder the higher the arms."],
-  ["Arm Movements", "Row (???)", "ub", "", "Arms forward; bend the elbows and draw the blades together (straight → bent). Low, mid or high."],
-  ["Arm Movements", "Triceps Press (all fours / tilt / standing / seated)", "ub", "", "Straighten the elbow against resistance (bent → straight)."],
-  ["Arm Movements", "Triceps Dip (back plank or chair)", "ub", "ti", "In back plank or on a chair; bend the elbows to lower, then press up."],
-  ["Arm Movements", "Overhead Press (???)", "ub", "", "Hands at shoulder height; press the arms overhead."],
-  ["Arm Movements", "Lateral Press (???)", "ub", "", "Elbows bent at shoulder height; press out to the side in scaption."],
-  ["Arm Movements", "Pulling Down (???)", "ub", "", "Arms overhead; bend the elbows to bring the resistance toward the chest."],
-  ["Arm Movements", "Forward Raise (???)", "ub", "", "Straight arms lift forward to chest height or overhead. Anterior shoulder."],
-  ["Arm Movements", "Side Raise (???)", "ub", "", "Straight arms lift out to the side. Deltoid."],
-  ["Arm Movements", "Pull Back (???)", "ub", "", "Straight arms pull back, can pass behind the torso. Triceps and posterior shoulder."]
-];
-// Pre-Pilates purpose bullets, in the same order as PP
-const PPP = [
-  ["Increase lung capacity", "Engage the core on the exhale", "Calm and focus the mind"],
-  ["Loosen the ribs and release the mid back", "Increase lung capacity", "Breathe while keeping the abs engaged"],
-  ["Increase lung expansion in lateral flexion", "Help scoliosis (breathe into the concave side)", "Help lung problems, e.g. asthma"],
-  ["Find neutral spine", "Release tension in the back and hips"],
-  ["Engage TA"],
-  ["Engage TA", "Find neutral spine"],
-  ["Strengthen the pelvic floor", "Increase pelvic floor awareness"],
-  ["Increase spinal stability", "Strengthen multifidi, erector spinae, glutes and hamstrings"],
-  ["Engage multifidi"],
-  ["Engage multifidi", "Find imbalances between the two sides of the spine"],
-  ["Activate the inner unit", "Train lower body strength and alignment"],
-  ["Train lower body strength and alignment"],
-  ["Experience lumbopelvic stability"],
-  ["Experience lumbopelvic stability"],
-  ["Experience the anterior and posterior oblique slings", "Integrate the slings with the limbs"],
-  ["Strengthen lumbopelvic stability"],
-  ["Strengthen hamstrings and glutes", "Increase lumbopelvic stability"],
-  ["Strengthen back extensors and the POS", "Challenge lumbopelvic stability"],
-  ["Strengthen the POS: back extensors, glutes, hamstrings", "Challenge lumbopelvic stability"],
-  ["Develop lumbopelvic stability"],
-  ["Develop lumbopelvic stability", "Balance all the outer units"],
-  ["Experience the AOS and POS standing"],
-  ["Train lumbopelvic stability for walking and running"],
-  ["Strengthen the lateral system"],
-  ["Mobilize the spine in flexion and extension"],
-  ["Mobilize the spine and hips (lateral flexion)"],
-  ["Strengthen abdominals", "Lift the head in line with the torso"],
-  ["Strengthen obliques", "Functional core strength and lumbopelvic stability"],
-  ["Strengthen the upper back", "Increase thoracic extension"],
-  ["Increase thoracic extension"],
-  ["Increase spinal extension"],
-  ["Increase lateral flexion"],
-  ["Increase rotation"],
-  ["Enhance and strengthen spinal flexion"],
-  ["Enhance and strengthen spinal flexion"],
-  ["Enhance and strengthen spinal extension"],
-  ["Enhance and strengthen lateral flexion"],
-  ["Enhance full body spinal rotation"],
-  ["Strengthen hip flexors (psoas, iliacus)", "Lumbopelvic stability", "Balance and coordination (standing)"],
-  ["Strengthen hip extensors: glutes and hamstrings", "Mobilize the hip (all fours)", "Balance and lumbopelvic stability (standing)"],
-  ["Strengthen adductors", "Challenge balance and lumbopelvic stability"],
-  ["Strengthen hip abductors", "Train lateral stability and balance"],
-  ["Three-dimensional ankle strength and mobility"],
-  ["Foot articulation with little weight", "Plantar proprioception; good for older clients"],
-  ["Ankle strength and mobility, weight bearing"],
-  ["Train counter-rotation of torso and pelvis"],
-  ["Warm up hips, knees and ankles", "Strengthen glutes, hamstrings, quads (turned out)"],
-  ["Balanced strength and power of hamstrings, glutes and quads"],
-  ["Balanced strength and power of hamstrings, glutes and quads"],
-  ["Balanced strength and power of hamstrings, glutes and quads"],
-  ["Strengthen infraspinatus and teres minor", "Support the humeral head"],
-  ["Strengthen subscapularis", "Support the humeral head"],
-  ["Warm up the shoulders", "Integrate the arms with the torso"],
-  ["Improve scapular mobility", "Coordinate spine, shoulder, arm and head"],
-  ["Improve scapular mobility", "Organize scapulohumeral rhythm"],
-  ["Improve scapular mobility", "Coordinate spine, shoulder, arm and head"],
-  ["Basic scapular stability"],
-  ["Basic scapular stability and mobility"],
-  ["Basic scapular stability"],
-  ["Scapular stability", "Core strength and posture"],
-  ["Scapular stability", "Core strength and whole body integration"],
-  ["Teach scapular stability"],
-  ["Scapular stability", "Strengthen back and hip extensors"],
-  ["Scapular stability", "Strengthen back and hip extensors"],
-  ["Strengthen the lateral system"],
-  ["Strengthen hip abductors, obliques and shoulder stabilizers"],
-  ["Strengthen the lateral system", "Challenge balance"],
-  ["Scapular control", "Upper body strength"],
-  ["Scapular control", "Upper body and core strength"],
-  ["Scapular control", "Upper body and core strength"],
-  ["Scapular control", "Upper body and core strength", "Whole body movement"],
-  ["Strengthen the anterior shoulder (pushing)"],
-  ["Strengthen the biceps (pulling)"],
-  ["Strengthen the posterior shoulder (pulling)"],
-  ["Strengthen the triceps (pushing)"],
-  ["Strengthen the triceps (pushing down)"],
-  ["Strengthen the shoulders (pushing overhead)"],
-  ["Strengthen the shoulders (pushing out to the side)"],
-  ["Strengthen the lats (pulling down)"],
-  ["Strengthen the anterior shoulder"],
-  ["Strengthen the deltoid"],
-  ["Strengthen the triceps and posterior shoulder"]
-];
-if (PPP.length !== PP.length) console.error("PPP length", PPP.length, PP.length);
-PP.forEach(([g, name, pri, sec, desc], i) => DATA.push({ m: 0, n: i + 1, pp: true, g, name, pri, sec, why: desc, purpose: PPP[i] || [], reps: "", level: "", pre: "", ready: "" }));
 const state = { m: "all", p: "all", q: "", quiz: false };
 try { Object.assign(state, JSON.parse(localStorage.getItem("cheat-state") || "{}"), { q: "" }); } catch (e) {}
 if (state.p !== "all" && !PRIN[state.p]) state.p = "all";
+if (!["all","1","2","3"].includes(state.m)) state.m = "all";
 const save = () => { try { localStorage.setItem("cheat-state", JSON.stringify({ m: state.m, p: state.p, quiz: state.quiz })); } catch (e) {} };
 document.getElementById("pkey").innerHTML = Object.entries(PRIN).map(([k, p]) => {
   const pri = DATA.filter(e => e.pri === k).length, sec = DATA.filter(e => e.sec === k).length;
@@ -509,17 +336,7 @@ function mpRows(e, q) {
   return `<div class="row pri p-${e.pri}"><span class="lbl">Primary MP</span><span class="dot"></span><span class="nm">${nm(e.pri)}</span></div>` +
     (e.sec ? `<div class="row p-${e.sec}"><span class="lbl">Secondary</span><span class="dot"></span><span class="nm">${nm(e.sec)}</span></div>` : "");
 }
-function ppCard(e, q) {
-  return `<article class="card" tabindex="0" data-id="${e.m}-${e.n}">
-    <div class="head solo"><div class="num">Pre-Pilates · ${e.g}</div><h3 class="name">${hl(e.name.replace(/&/g, "&amp;"), q)}</h3></div>
-    <div class="mp">${mpRows(e, q)}</div>
-    <p class="desc">${hl(e.why.replace(/&/g, "&amp;"), q)}</p>
-    <ul class="purpose">${e.purpose.map(p => `<li>${hl(p.replace(/&/g, "&amp;"), q)}</li>`).join("")}</ul>
-    <div class="foot"><span class="hint">Tap to reveal</span></div>
-  </article>`;
-}
 function card(e, q) {
-  if (e.pp) return ppCard(e, q);
   const parts = e.reps.match(/^([\d–]+|variable)\s*(.*)$/);
   const big = parts ? parts[1] : e.reps, unit = parts && parts[2] ? "reps " + parts[2] : "reps";
   const long = big.length > 5;
@@ -549,10 +366,10 @@ function render() {
     (!q || (e.name + " " + e.pre + " " + e.ready + " " + e.why + " " + PRIN[e.pri].name + " " + (e.sec ? PRIN[e.sec].name : "") + " " + (e.g || "") + " " + strip(e.purpose.join(" "))).toLowerCase().includes(q)));
   const main = document.getElementById("main");
   let out = "";
-  for (const m of [0, 1, 2, 3]) {
+  for (const m of [1, 2, 3]) {
     const r = rows.filter(e => e.m === m);
     if (!r.length) continue;
-    out += `<section class="manual" id="r${m}"><h2>${m ? "Reformer " + m : "Pre-Pilates"} <span>${r.length} shown</span></h2><div class="grid">${r.map(e => card(e, q)).join("")}</div></section>`;
+    out += `<section class="manual" id="r${m}"><h2>Reformer ${m} <span>${r.length} shown</span></h2><div class="grid">${r.map(e => card(e, q)).join("")}</div></section>`;
   }
   main.innerHTML = out || '<p class="empty">No exercises match. Try a muscle name like "hamstrings" or clear the filters.</p>';
   main.querySelectorAll(".card").forEach(c => { if (opened.has(c.dataset.id)) c.classList.add("open"); });
